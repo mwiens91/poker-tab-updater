@@ -2,6 +2,7 @@
 
 import locale
 import json
+import os
 import sys
 import gspread
 import PySimpleGUI as sg
@@ -140,8 +141,13 @@ def update_sheet(sheet: gspread.worksheet.Worksheet, deltas_dict: dict[str, floa
 def main():
     """The main function."""
 
-    # Set locale
-    locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
+    # Set locale based on operating system
+    if os.name == "nt":
+        locale_string = "en-US"
+    else:
+        locale_string = "en_US.UTF-8"
+
+    locale.setlocale(locale.LC_ALL, locale_string)
 
     # Window title and layout
     window_title = "Poker tab updater"
