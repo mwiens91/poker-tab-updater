@@ -126,8 +126,8 @@ def update_sheet(sheet: gspread.worksheet.Worksheet, deltas_dict: dict[str, floa
                     player,
                     locale.currency(delta),
                     "",
-                    locale.currency(delta),
-                    locale.currency(delta),
+                    locale.currency(0),
+                    locale.currency(0),
                     "=B%d+D%d+E%d"
                     % (new_row_sheet_idx, new_row_sheet_idx, new_row_sheet_idx),
                 ],
