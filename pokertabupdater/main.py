@@ -179,7 +179,7 @@ def main():
     locale.setlocale(locale.LC_ALL, locale_string)
 
     # Window title and layout
-    window_title = "Poker tab updater v%s" % VERSION
+    window_title = "Poker tab updater %s" % VERSION
     layout = [
         [
             sg.Text(
