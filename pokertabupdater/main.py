@@ -46,24 +46,18 @@ def parse_ledger(ledger: str) -> dict[str, float]:
     # potentially worry about here. On Firefox, the ledger will be
     # copy-pasted as
     #
-    # PLAYERNAME @ SOMEID
+    # PLAYERNAME POSSIBLY WITH WHITESPACE @ SOMEID
     # BUYIN BUYOUT STACK NET
     #
     # where this pattern is repeated for each player. On Chrome, it
     # copy-pastes each player's data in one line:
     #
-    # PLAYERNAME @ SOMEID BUYIN BUYOUT STACK NET
+    # PLAYERNAME POSSIBLY WITH WHITESPACE @ SOMEID BUYIN BUYOUT STACK NET
     #
-    # Technically the string "DETAILS" (which is grabbed from a button
-    # using that string) is appended to the ID, but we aren't using the
-    # IDs from the ledger so this doesn't really matter for our
-    # purposes.
-    #
-    # How we're going to differentiate them is by how many elements
-    # there are on the first line when we split by whitespace. If there
-    # are more than 3, then it's the Chrome format. Otherwise, it'll be
-    # the Firefox format.
-    is_firefox_format = len(lines[0].split()) < 4
+    # Technically for the above string "DETAILS" (which is grabbed from
+    # a button element named with that string) is appended to the ID,
+    # but we aren't using the IDs so this doesn't really matter.
+    is_firefox_format = len(lines[0].rpartition("@")[-1].split()) == 1
 
     # Now, depending on the format, we'll group the data differently
     # when we iterate through it. For Firefox format, we'll group the
