@@ -193,9 +193,6 @@ def main():
     # Read config JSON
     config_dict = get_config_dict()
 
-    # Get the sheet
-    sheet = get_sheet(config_dict["sheetKey"])
-
     # Make the window
     window = sg.Window(window_title, layout)
 
@@ -206,6 +203,9 @@ def main():
     if event in [sg.WIN_CLOSED, "Cancel"]:
         window.close()
         sys.exit(0)
+
+    # Get the sheet
+    sheet = get_sheet(config_dict["sheetKey"])
 
     # Get deltas dictionary
     deltas = parse_ledger(input_values[0])
