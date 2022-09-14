@@ -73,11 +73,11 @@ def parse_ledger(ledger: str) -> dict[str, float]:
         # Parse the line(s)
         if is_firefox_format:
             l1, l2 = iter_line
-            player_name_raw = l1.split()[0]
+            player_name_raw = " ".join(l1.split()[:-2])
             player_data = [float(x) for x in l2.split()]
         else:
             l_split = iter_line.split()
-            player_name_raw = l_split[0]
+            player_name_raw = " ".join(l_split[:-6])
             player_data = [float(x) for x in l_split[-4:]]
 
         player_name = player_name_raw.lower().title()
