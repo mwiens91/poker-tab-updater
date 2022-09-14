@@ -187,7 +187,7 @@ def main():
             )
         ],
         [sg.Multiline("", size=(70, 15))],
-        [sg.Button("Submit"), sg.Button("Cancel")],
+        [sg.Button("Submit"), sg.Button("Submit and exit"), sg.Button("Exit")],
     ]
 
     # Read config JSON
@@ -196,20 +196,22 @@ def main():
     # Make the window
     window = sg.Window(window_title, layout)
 
-    # Get the input values
-    event, input_values = window.read()
-
-    # But get out if the window is closed or cancel is clicked
-    if event in [sg.WIN_CLOSED, "Cancel"]:
-        window.close()
-        sys.exit(0)
-
     # Get the sheet
     sheet = get_sheet(config_dict["sheetKey"])
 
-    # Get deltas dictionary
-    deltas = parse_ledger(input_values[0])
+    # Persistent window loop
+    while True:
+        # Get the input values
+        event, input_values = window.read()
 
-    update_sheet(sheet, deltas)
+        # Exit handling
+        if event in [sg.WIN_CLOSED, "Exit"]:
+            window.close()
+            sys.exit(0)
 
-    window.close()
+        # Parse the input and update the sheet
+        deltas = parse_ledger(input_values[0])
+        update_sheet(sheet, deltas)
+
+        if event == "Submit and exit":
+            window.close()
