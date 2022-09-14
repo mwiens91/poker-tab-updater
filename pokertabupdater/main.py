@@ -8,6 +8,7 @@ import gspread
 import PySimpleGUI as sg
 from oauth2client.service_account import ServiceAccountCredentials
 from pokertabupdater.constants import CONFIG_PATH, CREDS_PATH
+from pokertabupdater.version import VERSION
 
 
 def get_config_dict() -> dict[str, str]:
@@ -184,7 +185,7 @@ def main():
     locale.setlocale(locale.LC_ALL, locale_string)
 
     # Window title and layout
-    window_title = "Poker tab updater"
+    window_title = "Poker tab updater v%s" % VERSION
     layout = [
         [
             sg.Text(
